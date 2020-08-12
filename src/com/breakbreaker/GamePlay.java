@@ -51,6 +51,34 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener {
         graphics.setColor(Color.GREEN);
         graphics.fillOval(ballPosX, ballPosY, 20, 20);
 
+        graphics.setColor(Color.BLACK);
+        graphics.setFont(new Font("serif",Font.BOLD,25));
+        graphics.drawString("" +score,590,30);
+
+        if (totalBrick<=0){
+            play=false;
+            ballXDir=0;
+            ballYDir=0;
+            graphics.setColor(Color.RED);
+            graphics.setFont(new Font("serif",Font.BOLD,30));
+            graphics.drawString("You Won, Score: " +score,190,300);
+
+            graphics.setFont(new Font("serif",Font.BOLD,25));
+            graphics.drawString("Press Enter to Restart." +score,230,350);
+        }
+
+        if (ballPosY > 570){
+            play=false;
+            ballXDir=0;
+            ballYDir=0;
+            graphics.setColor(Color.RED);
+            graphics.setFont(new Font("serif",Font.BOLD,30));
+            graphics.drawString("Game Over, Score: " +score,190,300);
+
+            graphics.setFont(new Font("serif",Font.BOLD,25));
+            graphics.drawString("Press Enter to Restart." +score,230,350);
+        }
+
         graphics.dispose();
     }
 
@@ -120,6 +148,19 @@ public class GamePlay extends JPanel implements KeyListener, ActionListener {
                 playerX = 10;
             else
                 moveLeft();
+        }
+
+        if (e.getKeyCode()==KeyEvent.VK_ENTER){
+            if (!play){
+                play=true;
+                ballPosX = 120;
+                ballPosY = 350;
+                ballXDir = -1;
+                ballYDir = -2;
+                score=0;
+                mapGenerator=new MapGenerator(3,7);
+                repaint();
+            }
         }
 
     }
